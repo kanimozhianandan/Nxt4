@@ -1,0 +1,43 @@
+{% extends "slide.html" %}
+{% block stylesheets %}<link rel="stylesheet" type=
+"text/css"  href="static/css/bootstrap.min.css">
+<link rel="stylesheet" href="static/css/kudosplease.min.css" type="text/css" >
+{% endblock %}
+{% block scripts %}<script src="static/js/kudosplease.min.js"></script>{% endblock %}
+{% block title %}Registration{% endblock %}
+{% block register%}
+               <br/><br/>
+               <form action='/accounts/register' method="post" role="form">{%csrf_token%}
+                 <div class="row">
+                   <div class="col-xs-6 col-md-6">
+                      <div class="form-group">
+                      <input class="form-control" name="firstname" placeholder="First Name" type="text"  required autofocus />
+                      </div>
+                   </div><!--col-xs-6-->         
+                   <div class="col-xs-6 col-md-6">
+                      <div class="form-group">
+                       <input class="form-control" name="lastname" placeholder="Last Name" type="text" required />
+                      </div>
+                   </div><!--col-xs-6-->
+                </div><!--row-->
+                <div class="form-group">
+                  <input class="form-control" name="youremail" placeholder="Your Email" type="email" />
+                </div>
+                <div class="form-group">
+                  <input class="form-control" name="password" placeholder="Re-enter password" type="password" />
+                </div> 
+                <div class="form-group">
+                   <input class="form-control" name="password" placeholder="Password" type="password" />
+               </div> 
+               <div class="form-group">
+                   <button type="submit" name="register" class="btn btn-default btn-small">Register</button>
+               </div>
+               </form>
+<br>
+{% block kudos %}
+<div class="kudos btn btn-default" data-amount="0" data-url = "http://127.0.0.1:8000"></div>
+{% endblock %}
+{% endblock %}
+
+
+

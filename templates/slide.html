@@ -1,0 +1,93 @@
+{% load static %}<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Education Network | Nxt4</title>
+{% block stylesheets %}
+<link href="static/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="static/css/kudosplease.min.css" type="text/css" >
+{% endblock %}
+{% block scripts %}<script src="static/js/kudosplease.min.js"></script>{% endblock %}
+{% block indexcss %}
+<link href="{% static "css/index.css"%}" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="{% static "style.css"%}" media="screen" type="text/css" />
+{% endblock %}
+</head>
+<body>
+<link href='http://fonts.googleapis.com/css?family=Raleway:400,200' rel='stylesheet' type='text/css'> 
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-main">
+        <form method="post" class="navbar-form navbar-right" role="form" action='/login'> {% csrf_token %}
+        <div class="form-group">
+        <input value="" type="email" class="form-control" name="email" placeholder="Email" style="height:30px;" tabindex="1" required>
+         </div>
+         <div class="form-group">
+         <input value="" type="password" class="form-control" name="password" placeholder="Password" style="height:30px;" tabindex="2" required>
+         </div>
+        <button type="submit" class="btn btn-success btn-small" style="height:30px;">Login</button>
+         </form>
+        </div>
+    </div>
+</div>
+   </div>
+    <nav class="social">
+    <ul>
+    <li><a href="http://twitter.com/thenxt4">Twitter <i class="fa fa-twitter"></i></a></li>
+    <li><a href="http://facebook.com/thenxt4">Facebook <i class="fa fa-facebook"></i></a></li>
+    <li><a href="http://dribbble.com/">Dribbble <i class="fa fa-dribbble"></i></a></li>
+
+   </ul>
+   </nav>
+ <header>
+<div class = "container">
+    <div class="row">
+        <div class="front-card"> 
+            <h2 class="text-center">Features</h2>
+            <center>
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="glyphicon glyphicon-ok green">
+                    </span>
+                </div>
+                <div class="col-md-8">
+                    Network of couselors and students
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="glyphicon glyphicon-ok green">
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="glyphicon glyphicon-ok green">
+                    </span>
+                </div><!--col-md-1-->
+             </div>
+         </center>
+         </div><!--front-card-->
+      </div><!--row-->
+   </div><!--container-->
+   <div class="container">
+       <div class="row">
+           <div class="register-card">
+               <a href='/registerform'>Register</a>
+            <br>
+            {% block register %}{% endblock %}
+           </div><!--Register card-->
+       </div>
+   </div>
+   </header>
+</body>
+
+</html>

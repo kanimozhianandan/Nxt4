@@ -1,0 +1,97 @@
+{% load static %}<!DOCTYPE html>
+<html lang="en">
+   <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{% block title %}Education Network {% endblock %}| Nxt4</title>
+
+    <!-- Bootstrap Core CSS -->
+    {% block bootstrapcss %}
+    <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet" type="text/css">
+    {% endblock bootstrapcss %}
+    {% block freelancercss %}
+    <link href="{% static "css/freelancer.css" %}" rel="stylesheet" type="text/css">
+    {% endblock freelancercss %}
+    {% block indexcss %}
+    <link href="{% static "css/index.css"%}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="{% static "style.css"%}" media="screen" type="text/css" />
+    <!-- Fonts -->
+    <link href="{% static "font-awesome/css/font-awesome.min.css"%}" rel="stylesheet" type="text/css">
+    {% endblock indexcss %}
+    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+
+    <!-- IE8 support for HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body class="index">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                   <span class="sr-only">Toggle navigation</span>
+                   <span class="icon-bar"></span>
+                   <span class="icon-bar"></span>
+                   <span class="icon-bar"></span>
+                </button>
+        <a class="navbar-brand" href="#"><img src="img/nxt.jpg" alt="Nxt4"></a>
+      
+        </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                
+             <form method="post" class="navbar-form navbar-right" role="search" action='/login'> {% csrf_token %}
+             <div class="form-group">
+             <input value="" type="email" class="form-control" name="email" placeholder="Email" tabindex="1" required>
+              </div>
+             <div class="form-group">
+              <input value="" type="password" class="form-control" name="password" placeholder="Password" tabindex="2" required>
+              </div>
+             <button type="submit" class="btn btn-default btn-small">Login</button>
+             </form>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="front-card">
+                    <legend><h2>Features</h2></legend>  
+                    <div class="row">
+                    <div class="col-lg-2">
+                    <h2 class="glyphicon glyphicon-screenshot"></h2>
+                    </div><!--Col2-->
+                    <div class="col-lg-6">
+                     <h2 class="features">Network of Counselors</span>
+                   </div><!--Col6-->
+               </div><!--row-->
+           </div><!--front-card-->
+
+           <!--Register-->
+
+         <div class="register-card">
+             {% block content %}{% endblock %}
+         </div><!--register-card-->
+     </div><!--row-->
+ </div><!--container-->
+    </header>
+    <!--footer-->
+    
+    </div>
+    </body>
+    </html>
+    
