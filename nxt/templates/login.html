@@ -1,0 +1,24 @@
+{% extends "slide.html"%}
+{% block stylesheets %}
+<link href="/static/css/bootstrap.min.css" rel="stylesheet" type="text/css"> 
+<link href="/static/css/index.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/static/style.css" media="screen" type="text/css" />
+{% endblock %}
+{% block login %}
+<form method="post" class="navbar-form navbar-right" role="form" action=""> {% csrf_token %}
+    {% if form.errors %}
+    {{ form.errors.as_text }}
+    {% endif %}
+        <div class="form-group">
+            {{ form.email.label_tag }}
+            {{ form.email }}
+            {{ form.email.errors }}
+         </div>
+         <div class="form-group">
+             {{ form.password.label_tag }}
+             {{ form.password }}
+             {{ form.password.errors }}
+         </div>
+        <button type="submit" class="btn btn-success btn-small" style="height:30px;">Login</button>
+         </form>
+{% endblock %}       

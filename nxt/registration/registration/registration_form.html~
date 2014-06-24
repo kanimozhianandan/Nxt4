@@ -1,0 +1,21 @@
+{% extends "slide.html" %}
+{% block stylesheets %}<link rel="stylesheet" type=
+"text/css"  href="../../static/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="../../static/style.css">
+<link rel="stylesheet" type="text/css" href="../../static/css/index.css">
+{% endblock %}
+{% block title %}Registration{% endblock %}
+{% block register%}
+               <br/><br/>
+               {% if form.errors %}
+                  <p class="errors">{{form.non_field_errors}}</p>
+               {% endif %}
+               <form action="" method="post" role="form">{%csrf_token%}
+                   {{ form.as_table }}
+                   <button type="submit">Rgi</button>
+               </form>
+<br>
+{% endblock %}
+
+
+

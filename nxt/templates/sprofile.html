@@ -1,0 +1,96 @@
+{% load static %}
+<html>
+<!-- IE8 support for HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+{% block bootstrapcss %}
+    <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet" type="text/css">
+{% endblock bootstrapcss %}
+ {% block indexcss %}
+    <link href="{% static "css/index.css"%}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="{% static "style.css"%}" media="screen" type="text/css" />
+    <link href="{% static "css/feed.css"%}" rel="stylesheet" type="text/css">
+    <!-- Fonts -->
+    <link href="{% static "font-awesome/css/font-awesome.min.css"%}" rel="stylesheet" type="text/css">
+    {% endblock indexcss %}
+    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+
+
+<body id="page-top" class="index">
+<script type="text/javascript" src="http://js.addthisevent.com/atemay.js"></script>
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#"><img src="img/nxt.jpg" alt="Nxt4"></a>
+
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <form class="navbar-form navbar-right" role="search">
+                <input type="text" class="form-control" name="search" placeholder="Search" size="15"/>
+                <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+            </form>
+        </div>
+        <!-- navbar-collapse -->
+    </div>
+    <!-- container-->
+</nav>
+
+<header>
+    <div class="container">
+        <div class="pp">
+            <!--Profile pic from the nstudenttable--> 
+        </div>
+        <div class="pc">  
+     <!--  <div class="btn-group">
+     <button class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-plus-sign"></span></button>
+      </div>-->
+   <!--Profile card data from the nstudenttable-->                   
+       <p>{{ email }}</p>
+          
+       </div><!--pc-->
+        <div class="pco">
+            My Colleges <button type="button"><i class="glyphicon glyphicon-plus-sign"></i></button> <!--Add the listed colleges into the place with the nstudenttable and ncollegeslist-->
+        </div><!--pco-->
+    <!--All the feed data from nstudentdata and ncounselor and messages-->    
+      <div class="row">
+      <div class="board">
+       <div class="board-inner">
+       <ul class ="nav nav-tabs" id="myTab">
+        <div class="liner"></div>
+       <li class="active">
+        <a href="#home">
+         <span class="round-tabs one">
+          <i class="glyphicon glyphicon-home"></i>
+         </span>
+        </a>
+       </li>
+       </ul>
+       </div><!--board-inner-->
+      </div><!--board-->
+      </div>
+      </header>
+
+<!--footer-->
+<div class ="footer">
+    <div class="container">
+        <div class="row">
+
+        </div>
+    </div>
+</div><!--footer-->
+
+</body>
+</html>
+

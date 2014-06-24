@@ -1,0 +1,7 @@
+{% load static %}
+<html>
+{% block title %}Kudos to Nxt4{% endblock %}
+<link rel="stylesheet" href="static/css/kudosplease.min.css" >
+<script src="static/js/kudosplease.min.js"></script>
+<div class="kudos" data-amount="0" data-url = "http://127.0.0.1:8000"></div>
+</html>
