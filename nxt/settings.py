@@ -36,7 +36,9 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'registration',
+    'profiles',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -69,6 +71,9 @@ DATABASES = {
     }
 }
 
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+
 # Internationalization
 # https://docs.djangoproject.com/en/dev/topics/i18n/
 
@@ -82,9 +87,13 @@ USE_L10N = True
 
 USE_TZ = True
 
+SITE_ID = 1
 APPEND_SLASH = False
 ACCOUNT_ACTIVATION_DAYS = 2
+
 # https://docs.djangoproject.com/en/dev/howto/static-files/
+
+LOGIN_REDIRECT_URL = '/profile/create/'
 STATICFILES_DIRS = os.path.join(BASE_DIR,"static"),
 STATIC_URL = '/static/'
-TEMPLATE_DIRS=(os.path.join(BASE_DIR,'templates'),os.path.join(BASE_DIR,'registration'))
+TEMPLATE_DIRS=(os.path.join(BASE_DIR,'templates'),os.path.join(BASE_DIR,'registration'),os.path.join(BASE_DIR,'profiles'))

@@ -2,8 +2,6 @@
 Forms and validation code for user registration.
 
 """
-
-
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
@@ -36,7 +34,7 @@ class RegistrationForm(forms.Form):
                                 max_length=30,
                                 widget=forms.TextInput(attrs=attrs_dict),
                                 label=_(u'firstname'))
-    lastname = forms.RegexFiels(regex=r'^\w+$',max_length=30,widget=forms.TextInput(attrs.attrs_dict))
+    lastname = forms.RegexFiels(regex=r'^\w+$',max_length=30,widget=forms.TextInput(attrs.attrs_dict),label=_(u'lastname'))
     email = forms.EmailField(widget=forms.TextInput(attrs=dict(attrs_dict,
                                                                maxlength=75)),
                              label=_(u'email address'))
@@ -46,14 +44,13 @@ class RegistrationForm(forms.Form):
                                 label=_(u'password (again)'))
     
     """    def clean_username(self):
-        """
-        """
-        Validate that the username is alphanumeric and is not already
-        in use."""
         
-        """
-        try:
-            user = User.objects.get(username__iexact=self.cleaned_data['username'])
+
+    Validate that the username is alphanumeric and is not already
+    in use.
+      
+    try:
+        user = User.objects.get(username__iexact=self.cleaned_data['username'])
         except User.DoesNotExist:
             return self.cleaned_data['username']
         raise forms.ValidationError(_(u'This username is already taken. Please choose another.'))"""
@@ -68,7 +65,7 @@ class RegistrationForm(forms.Form):
         """
         if 'password1' in self.cleaned_data and 'password2' in self.cleaned_data:
             if self.cleaned_data['password1'] != self.cleaned_data['password2']:
-                raise forms.ValidationError(_(u'Password doesn\'t match'))
+                raise forms.ValidationError(_(u'These Password doesn\'t match'))
         return self.cleaned_data
     
     def save(self, profile_callback=None):
@@ -84,8 +81,8 @@ class RegistrationForm(forms.Form):
         
         """
         new_user = RegistrationProfile.objects.create_inactive_user(firstname=self.cleaned_data['firstname'],lastname=self.cleaned_data['lastname'],
-                                                                    password=self.cleaned_data['password1'],
-                                                                    email=self.cleaned_data['email'],
+                                                                   password=self.cleaned_data['password1'],
+          email=self.cleaned_data['email'],
                                                                     profile_callback=profile_callback)
         return new_user
 

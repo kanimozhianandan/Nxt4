@@ -9,6 +9,7 @@ from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
+from django.core.mail import send_mail
 
 
 SHA1_RE = re.compile('^[a-f0-9]{40}$')
@@ -80,7 +81,7 @@ class RegistrationManager(models.Manager):
             The ``User`` to relate the profile to.
         
         """
-        new_user = User.objects.create_user(username, email, password)
+        new_user = User.objects.create_user(firstname, lastname, email, password)
         new_user.is_active = False
         new_user.save()
         
@@ -93,15 +94,11 @@ class RegistrationManager(models.Manager):
             from django.core.mail import send_mail
             current_site = Site.objects.get_current()
             
-            subject = render_to_string('registration/activation_email_subject.txt',
-                                       { 'site': current_site })
+            subject = render_to_string('registration/activation_email_subject.txt', { 'site': current_site })
             # Email subject *must not* contain newlines
             subject = ''.join(subject.splitlines())
             
-            message = render_to_string('registration/activation_email.txt',
-                                       { 'activation_key': registration_profile.activation_key,
-                                         'expiration_days': settings.ACCOUNT_ACTIVATION_DAYS,
-                                         'site': current_site })
+            message = render_to_string('registration/activation_email.txt', { 'activation_key': registration_profile.activation_key,                'expiration_days': settings.ACCOUNT_ACTIVATION_DAYS, 'site': current_site })
             
             send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [new_user.email])
         return new_user

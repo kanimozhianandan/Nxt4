@@ -5,9 +5,7 @@
 <title>Education Network | Nxt4</title>
 {% block stylesheets %}
 <link href="static/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="static/css/kudosplease.min.css" type="text/css" >
 {% endblock %}
-{% block scripts %}<script src="static/js/kudosplease.min.js"></script>{% endblock %}
 {% block indexcss %}
 <link href="{% static "css/index.css"%}" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="{% static "style.css"%}" media="screen" type="text/css" />
@@ -26,18 +24,10 @@
             </button>
         </div>
         <div class="navbar-collapse collapse" id="navbar-main">
-        <form method="post" class="navbar-form navbar-right" role="form" action='/login'> {% csrf_token %}
-        <div class="form-group">
-        <input value="" type="email" class="form-control" name="email" placeholder="Email" style="height:30px;" tabindex="1" required>
+        {% block login %}
+        {% endblock %}
          </div>
-         <div class="form-group">
-         <input value="" type="password" class="form-control" name="password" placeholder="Password" style="height:30px;" tabindex="2" required>
-         </div>
-        <button type="submit" class="btn btn-success btn-small" style="height:30px;">Login</button>
-         </form>
-        </div>
     </div>
-</div>
    </div>
     <nav class="social">
     <ul>
@@ -81,7 +71,6 @@
    <div class="container">
        <div class="row">
            <div class="register-card">
-               <a href='/registerform'>Register</a>
             <br>
             {% block register %}{% endblock %}
            </div><!--Register card-->

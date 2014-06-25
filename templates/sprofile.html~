@@ -7,11 +7,8 @@
     <![endif]-->
 {% block bootstrapcss %}
     <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet" type="text/css">
-    {% endblock bootstrapcss %}
-    {% block freelancercss %}
-    <link href="{% static "css/freelancer.css" %}" rel="stylesheet" type="text/css">
-    {% endblock freelancercss %}
-    {% block indexcss %}
+{% endblock bootstrapcss %}
+ {% block indexcss %}
     <link href="{% static "css/index.css"%}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="{% static "style.css"%}" media="screen" type="text/css" />
     <link href="{% static "css/feed.css"%}" rel="stylesheet" type="text/css">
@@ -60,9 +57,11 @@
      <button class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-plus-sign"></span></button>
       </div>-->
    <!--Profile card data from the nstudenttable-->                   
+       <p>{{ email }}</p>
+          
        </div><!--pc-->
         <div class="pco">
-            My Colleges <button type="button" class="round-tabs one"><i class="glyphicon glyphicon-plus-sign"></i></button> <!--Add the listed colleges into the place with the nstudenttable and ncollegeslist-->
+            My Colleges <button type="button"><i class="glyphicon glyphicon-plus-sign"></i></button> <!--Add the listed colleges into the place with the nstudenttable and ncollegeslist-->
         </div><!--pco-->
     <!--All the feed data from nstudentdata and ncounselor and messages-->    
       <div class="row">

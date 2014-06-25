@@ -4,11 +4,12 @@ from django.contrib.auth import views
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.views.generic import TemplateView, RedirectView
-from nxt.views import login, logout , password_change
+from nxt.views import login, logout, password_change
 admin.autodiscover()
 urlpatterns = [
-    url(r'^/?$', TemplateView.as_view(template_name='kudos.html'), name="homepage"),   
+    #url(r'^/?$', TemplateView.as_view(template_name='registration_form.html'), name="homepage"),   
     url(r'^accounts/',include('registration.urls')),
+    url(r'^profile/',include('profiles.urls')),
     url(r'^login/$', login, name='login'),
     url(r'^logout/$', logout, name='logout'),
     url(r'^password_change$', views.password_change, name='password_change'),

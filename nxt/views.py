@@ -30,18 +30,15 @@ def login(request, template_name='login.html',
     """
     redirect_to = request.POST.get(redirect_field_name,
                                    request.GET.get(redirect_field_name, ''))
-
     if request.method == "POST":
         form = authentication_form(request, data=request.POST)
         if form.is_valid():
-
             # Ensure the user-originating redirection url is safe.
             if not is_safe_url(url=redirect_to, host=request.get_host()):
                 redirect_to = resolve_url(settings.LOGIN_REDIRECT_URL)
 
-            # Okay, security check complete. Log the user in.
+            # Okay, security check complete. Log the user in
             auth_login(request, form.get_user())
-
             return HttpResponseRedirect(redirect_to)
     else:
         form = authentication_form(request)
@@ -296,3 +293,4 @@ def password_change_done(request,
 
     def index():
         return render_to_response('nxt/index.html')
+
