@@ -1,0 +1,37 @@
+{% extends "sprofile.html" %}
+{% block stylesheets %}
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="/static/css/index.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/static/style.css" type="text/css" />
+    <link href="/static/css/feed.css" rel="stylesheet" type="text/css">
+    <link href="/static/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+ {% endblock %}
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+{% block profile %}
+<form method="post" action="" role="form">{% csrf_token %}
+  <div class="row">
+      <div class="col-xs-6 col-md-6">
+       <div class="form-group">
+           {{form.yearinschool.label_tag}}
+           {{form.yearinschool}}
+           {{form.yearinschool.errors}}
+       </div>
+      </div><!--col-xs-6-->
+      <div class="col-xs-6 col-md-6">
+          <div class="form-group">
+              {{form.birth_date.label_tag}}
+              {{form.birth_date}}
+              {{form.birth_date.errors}}
+          </div>
+      </div>
+       <div class="col-xs-6 col-md-6">
+          <div class="form-group">
+          </div>
+        </div>
+
+  </div>
+</form>
+{% endblock %}
+

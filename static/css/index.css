@@ -4,21 +4,37 @@ body {
       -moz-background-size: cover;
       -o-background-size: cover;
       background-size: cover;
-   }
-  
+      background:#fff;
+      color:#fff;
+  }
+.box {
+     border-radius: 25px;
+     border: 2px solid;
+     padding: 50px 10px;
+     width:500px;
+ }
+span.tags 
+ {
+     background: #3d3d3d;
+     border-radius: 2px;
+     color: #f5f5f5;
+     font-weight: bold;
+     padding: 2px 4px;
+  }
 .front-card{
-    left:40%;
+    left:35%;
     position:absolute;  
-    width:850px;
+    width:500px;
     border-style:transparent;
-    background:#efefef;
+    background:url("/static/img/squared_metal.png");
     color:#2c3e50;
+    z-index:-1;
 }
 .front-card
-{height:440px;margin:-120px 0 0 -460px;top:50%;width:450px}
+{ height:300px;margin:-120px 0 0 -380px;top:40%;width:500px }
 
 .register-card{
-    left:80%;
+    left:90%;
     position:absolute;
     width:850px;
     border-style:transparent;
@@ -26,37 +42,62 @@ body {
 }
 
 .register-card
-{height:440px;margin:-120px 0 0 -418px;top:50%;width:450px;}
+{height:440px;margin:-120px 0 0 -418px;top:40%;width:450px;}
 
+.kudo{
+    position:fixed;
+    bottom:15px;
+    right:15px;}
 .pp{
+
     left:10%;
     position:absolute;
-    width:300px;
-    border-style:solid;
+    width:225px;
+    color:#182e34;
 }
-.pp{height:160px;margin:-90px 0 0 -118px;top:35%;width:200px;}
+.pp{margin:-70px 0 0 -118px;top:25%;}
 .pc{
-    left:40%;
-    position:relative;
-    width:80%;
-    border-style:solid;
+    left:30%;
+    position:absolute;
+    width:50%;
+    background-color:#efefef;
+    color:#000;
+    text-align:center;
 }
-.pc{height:170px;margin:-120px 0 0 -180px;top:30%;}
+.pc{height:170px;margin:-90px 30px 0 -120px;top:30%;}
 .pco{
     left:10%;
     position:absolute;
     width:250px;
-    border-style:solid; 
+    background-color:#efefef; 
+    color:#000;
 }
-.pco{height:50%;margin:-90px 0 0 -118px;top:65%;}
+.pco{height:100%;margin:-90px 0 0 -118px;top:65%;}
 .pfe{
     left:45%;
-    position:relative;
+    position:absolute;
     width:70%;
-    border-style:solid;
+    background-color:#efefef;
+    color:#000;
 }
-.pfe{height:600px;margin:20px 0 20px -200px;}
+.pfe{height:800px;margin:110px 0 0 -235px;}
+.logsout{
+ position:fixed;
+ top:2.5%;
+ left:97%;
+}
+.tohome{
+ position:fixed;
+ top:2.5%;
+ left:93%;
 
+}
+.cal{
+ position:relative;
+ top:15%;
+ left:80%;
+ z-index:-1;
+}
 .btn-circle {
     width: 30px;
     height: 30px;
@@ -73,7 +114,7 @@ body {
     margin: 0 10px 10px 0;
     width: 150px;
     height: 48px;
-    background: #F1F1F1;
+    background: #fff;
 }
 
 .slide-social .button{
@@ -116,15 +157,6 @@ body {
     font-weight: 600;
 }
 
-/* Brand Colours */
-
-.facebook{
-    background: #3b5998;
-}
-
-.twitter{
-    background: #00acee;
-}
 
 /* Slide Animation */
 

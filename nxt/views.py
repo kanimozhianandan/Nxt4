@@ -1,7 +1,10 @@
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect, QueryDict
+from django.template import Template, Context
+from django.template.loader import get_template
 from django.template.response import TemplateResponse
+from django.template import RequestContext, loader
 from django.utils.http import is_safe_url, urlsafe_base64_decode
 from django.utils.translation import ugettext as _
 from django.utils.six.moves.urllib.parse import urlparse, urlunparse
@@ -15,9 +18,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm, SetPasswordForm, PasswordChangeForm
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.shortcuts import get_current_site
-from django.shortcuts import render
-
-
+from django.shortcuts import render, render_to_response
+from django.contrib.auth.models import User
 @sensitive_post_parameters()
 @csrf_protect
 @never_cache
@@ -34,12 +36,12 @@ def login(request, template_name='login.html',
         form = authentication_form(request, data=request.POST)
         if form.is_valid():
             # Ensure the user-originating redirection url is safe.
-            if not is_safe_url(url=redirect_to, host=request.get_host()):
-                redirect_to = resolve_url(settings.LOGIN_REDIRECT_URL)
+            #if not is_safe_url(url=redirect_to, host=request.get_host()):
+             #   redirect_to = resolve_url(settings.LOGIN_REDIRECT_URL)
 
             # Okay, security check complete. Log the user in
             auth_login(request, form.get_user())
-            return HttpResponseRedirect(redirect_to)
+            return HttpResponseRedirect('/subvtle/#home')
     else:
         form = authentication_form(request)
 
@@ -58,7 +60,7 @@ def login(request, template_name='login.html',
 
 
 def logout(request, next_page=None,
-           template_name='registration/logged_out.html',
+           template_name='logged_out.html',
            redirect_field_name=REDIRECT_FIELD_NAME,
            current_app=None, extra_context=None):
     """
@@ -294,3 +296,17 @@ def password_change_done(request,
     def index():
         return render_to_response('nxt/index.html')
 
+@login_required
+def search(request):
+        if 'q' in request.GET:
+            query = request.GET['q']
+            if query is not None:
+                results = User.objects.filter(first_name__icontains=query) | User.objects.filter(last_name__icontains=query)    
+        else:
+            query = ""
+            results = None
+        t = get_template('search.html')
+        c = Context({'users':results})
+        response = t.render(c)
+        return HttpResponse(response)
+            

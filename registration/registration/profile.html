@@ -1,0 +1,5 @@
+<a href="/accounts/profile/">Edit profile</a>
+<form method="post" action="" enctype="multipart/form-data">{% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" name="edit profile">
+</form>

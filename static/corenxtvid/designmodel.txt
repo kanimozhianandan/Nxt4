@@ -1,0 +1,146 @@
+﻿Design module of the backend
+
+
+
+
+
+
+	Location
+	Module
+	Reference
+	1
+	nxt/settings.py
+	SETTINGS_APPS_TEMPLATE
+	Project Settings
+	2
+	nxt/views.py
+	login, logout, logout_then_login, redirect_to_login, password_reset, password_reset_done, password_reset_confirm, password_reset_complete, 
+password_change,
+password_change_done,
+	login.html
+logout.html
+password_reset.html
+password_reset_done.html
+password_change.html
+password_change_done.html
+	3
+	nxt/urls.py
+	TEMPLATES
+	(url redirection)
+	4
+	nuser/models.py
+	nuser  
+	(New user details and registration confirmation)
+	5a
+	nuser/views.py
+	activate
+	Send activation link.
+After confirmation, make the account active.
+	5b
+	nuser/views.py
+	register
+	Register a new user. checks the email id is unique.
+	6a
+	nuser/forms.py
+	Registrationform
+	Maps all the user details to fields.
+	6b
+	nuser/forms.py
+	RegistrationFormUniqueEmail
+	Already registered user is not to be allowed to registered again.(Refer 5b )
+	7a
+	registration/registration/models.py
+	RegistrationManager/activate_user
+	Validate the activation key and activate the user if the key hasn’t expired.
+	7b
+	registration/registraion/models.py
+	RegistrationManager/create_inactive_user
+	create_user using registration form details. 
+Set user.is_active = False.
+Then mail the activation key for user confirmation. 
+	7c
+	registration/registration/models.py
+	RegistrationManager/create_profile 
+	create SHA1 activation key for the user.
+	7d 
+	registration/registration/models.py
+	RegistrationManager/delete_expired_users
+	Delete user instances with expired keys. Can also be accessed for regular site maintanence as
+“python manage.py cleanupregistration”
+	7e
+	registration/registration/models.py
+	RegistrationProfile
+	instance of user is saved along with activation keys and expiration
+This models sole purpose is to store the user data temporarily between registration and activation
+	8a
+	registration/registration/views.py
+	activate
+template used : registration/activate.html
+	Activate the user’s account by confirming the activation link, if the key hasn’t expired(Check 5a)
+	8b
+	registration/registration/views.py
+	register
+form used : RegistrationForm(Refer )
+template used : registration/registration_form.html
+	allows a new user to register. Upon success forward to registration_complete url
+(Check 5b)
+	9a
+	registration/registration/forms.py
+	RegistrationForm 
+	Form for registering new users. (used with 8b)
+	9b
+	registration/registration/forms.py
+	RegistrationForm/clean_username
+	checks for unique alphanumeric username
+	9c
+	registration/registration/forms.py
+	RegistrationForm/clean
+	checks if the input to the 2 password fields match.
+	9d
+	registration/registration/forms.py
+	RegistrationForm/save
+	create the new User and RegistrationProfile(7e) and returns User.
+	9e 
+	registration/registration/forms.py
+	RegistrationFormTermsOfService(RegistrationForm)
+	subclass of the RegistrationForm agreeing to the terms of service
+	9f
+	registration/registration/forms.py
+	RegistrationFormTermsOfService/clean_tos
+	validates that the user accepted the terms of service.
+	9g
+	registration/registration/forms.py
+	RegistrationFormUniqueEmail/clean_email
+	subclass of the RegistrationForm that enforces the uniqueness of email(Check 6b)
+	9h
+	registration/registraion/forms.py
+	RegistrationFormNoFreeEmail/clean_email
+	subclass of RegistrationForm that disallows any registration using any of the given bad_domains.
+	10
+	registration/registration/urls.py
+	All url redirection specified with templates including the nxt/urls.py
+	Url redirection (Check 3)
+	11
+	/static/
+	css js less img fonts font-awesome
+	all the static files 
+	12 a
+	/templates/
+	index.html
+	Homepage
+	12b
+	/templates/
+	sprofile.html
+	StudentProfile template
+	12c
+	/templates/
+	login.html
+	After login template (redirection should be included)
+	12d
+	/templates/
+	confirm.html
+	confirmation page after registration and asking the user to confirm the activation link in email
+	12e
+	/templates/
+	register.html
+	test page

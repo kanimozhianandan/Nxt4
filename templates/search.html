@@ -1,0 +1,55 @@
+{% extends "django_messages/subvtle.html" %}
+{% block content %}
+<div class="container">
+{% for search in users %}
+<div class="row">
+<div class="col-md-offset-4 col-md-6 col-lg-offset-3 col-lg-6">
+<div class="box" style="margin:10px;border:solid #505050;">
+    <h3><a href="/">{{search.first_name}}{{search.last_name}}</a></h3>
+ {% ifequal search.category 'C' %}
+<p style="color:#000;"><strong>Counselor at {{search.profile.school_name}}</strong></p>
+<p>
+ {% if search.profile.sports %}
+ <span class="tags">{{search.profile.sports}}</span>
+ {% endif %}
+ {% if search.profile.clubs %}
+ <span class="tags">{{search.profile.clubs}}</span>
+ {% endif %}
+ {% if search.profile.volunteer %}
+ <span class="tags">{{search.profile.volunteer}}</span>
+ {% endif %}
+ {% if search.profile.interests %}
+ <span class="tags">{{search.profile.interests}}</span>
+ {% endif %}
+</p>
+<div class="col-xs-12 col-sm-4">
+<form action="/friends/follower/add/{{ search }}/" method="post" >{% csrf_token %}
+ <button type="submit" class="btn btn-primary btn-block" style="padding:3px 5px;" /><span class="fa fa-plus-circle"></span>Follow</button>
+</form>
+</div>
+ {% else %}
+<p style="color:#000;"><strong>{{search.profile.year_in_school}} at {{search.profile.school_name}}</strong></p>
+<p>
+<span class="tags">{{search.profile.sports}}</span>
+<span class="tags">{{search.profile.clubs}}</span>
+<span class="tags">{{search.profile.volunteer}}</span>
+</p>
+<div class="col-xs-12 col-sm-4">
+<form action="/friends/friend/add/{{search}}/" method="post">{% csrf_token %}
+<button type="submit" class="btn btn-info btn-block" style="padding:3px 5px;"><span class="fa fa-user"></span>Add friend</button>
+</form>
+</div>
+{% endifequal %}
+</div>
+</div>
+</div>
+{% empty %}
+<div>
+<div class="col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6 ">
+<p class=lead>"No search results found!"</p>
+Send an invite to them <a href="/friends/friend/invite/">by email.</a>
+<div>
+</div>
+{% endfor %}
+</div>
+{% endblock %}

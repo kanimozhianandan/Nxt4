@@ -1,0 +1,20 @@
+from django.db import models
+def genvideo_file(instance, filename):
+    ext = filename.split('.')[-1]
+    return '/static/corenxtvid/' + str(int(time())) + '.' + ext
+
+class Feeds(models.Model):
+    post_to = (
+              ('Students','Students'),
+              ('Counselors','Counselors'),
+              ('Everyone','Everyone'),
+              ) 
+    user = models.ForeignKey(User) 
+    feed = models.CharField(max_length=1050) 
+    postdate = models.DateField(datetime.datetime.now())
+    video = models.FileField(upload_to=genvideo_file,null=True,blank=True)
+    adddate = models.DateField(default=datetime.date.today,blank=True)
+    postto = models.CharField(max_length=15,choices=post_to)
+
+    User.post = property(lambda u: Feeds.objects.get_or_create(user=u)[0])
+# Create your models here.

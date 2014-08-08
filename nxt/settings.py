@@ -1,5 +1,5 @@
 """
-Django settings for nxt project.
+
 
 For more information on this file, see
 https://docs.djangoproject.com/en/dev/topics/settings/
@@ -38,7 +38,13 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'registration',
-    'profiles',
+    'userprofile',
+    'collegelist',
+    'friendship',
+    'django_messages',
+    'privacy',
+    'hvad',
+    'feeds',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -55,6 +61,13 @@ ROOT_URLCONF = 'nxt.urls'
 
 WSGI_APPLICATION = 'nxt.wsgi.application'
 
+TEMPLATE_CONTEXT_PROCESSORS=(
+        'django.contrib.auth.context_processors.auth',
+        'django.core.context_processors.debug',
+        'django.core.context_processors.i18n',
+        'django.core.context_processors.media',
+        'django.contrib.messages.context_processors.messages',
+        'django.core.context_processors.request',)
 
 # Database
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
@@ -73,6 +86,7 @@ DATABASES = {
 
 EMAIL_HOST = 'localhost'
 EMAIL_PORT = 1025
+MEDIA_ROOT = os.path.join(os.path.dirname(__file__), '..', 'static/corenxtvid').replace('\\','/')
 
 # Internationalization
 # https://docs.djangoproject.com/en/dev/topics/i18n/
@@ -90,10 +104,13 @@ USE_TZ = True
 SITE_ID = 1
 APPEND_SLASH = False
 ACCOUNT_ACTIVATION_DAYS = 2
+ANONYMOUS_USER_ID = -1
 
+AUTH_PROFILE_MODULE = 'userprofile.UserProfile'
 # https://docs.djangoproject.com/en/dev/howto/static-files/
 
-LOGIN_REDIRECT_URL = '/profile/create/'
+LOGIN_REDIRECT_URL = '/accounts/profile/'
+LOGIN_URL = '/login/'
 STATICFILES_DIRS = os.path.join(BASE_DIR,"static"),
 STATIC_URL = '/static/'
-TEMPLATE_DIRS=(os.path.join(BASE_DIR,'templates'),os.path.join(BASE_DIR,'registration'),os.path.join(BASE_DIR,'profiles'))
+TEMPLATE_DIRS=(os.path.join(BASE_DIR,"templates"),os.path.join(BASE_DIR,"registration"),os.path.join(BASE_DIR,"friendship"),os.path.join(BASE_DIR,"messages"),(os.path.join(BASE_DIR,"privacy")))

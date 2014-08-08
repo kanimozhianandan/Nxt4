@@ -1,0 +1,91 @@
+{% extends "sprofile.html"%}
+<script type="text/javascript">
+$(document).ready(function()
+        {
+        var navItems = $('.admin-menu li > a');
+        var navListItems = $('.admin-menu li');
+        var allWells = $('.admin-content');
+        var allWellsExceptFirst = $('.admin-content:not(:first)');
+
+        allWellsExceptFirst.hide();
+        navItems.click(function(e)
+            {
+            e.preventDefault();
+            navListItems.removeClass('active');
+            $(this).closest('li').addClass('active');
+
+            allWells.hide();
+            var target = $(this).attr('data-target-id');
+            $('#' + target).show();
+            });
+        });
+</script>
+<script type="text/javascript">
+$(function(){
+        var hash = window.location.hash;
+        hash && $('ul.nav a[href="' + hash + '"]').tab('show');
+
+        $('.nav-pills a').click(function (e) {
+            $(this).tab('show');
+            var scrollmem = $('body').scrollTop();
+            window.location.hash = this.hash;
+            $('html,body').scrollTop(scrollmem);
+            });
+        });
+</script>
+{% block fills %}
+    <div class="board">
+    <div class="row">
+        <div class="col-md-3">
+            <ul class="nav nav-pills nav-stacked admin-menu">
+                <br/><br/>
+                <li class="active"><a href="#home" data-target-id="home"><i class="fa fa-home fa-fw"></i>Home</a></li>
+                <li><a href="#profile" data-target-id="profile"><i class="fa fa-list-alt fa-fw"></i>Profile</a></li>
+                <li><a href="#friends" data-target-id="friends"><i class="fa fa-file-o fa-fw"></i>Friends</a></li>
+                <li><a href="#messages" data-target-id="messages"><i class="fa fa-bar-chart-o fa-fw"></i>Messages</a></li>
+                <li><a href="#settings" data-target-id="settings"><i class="fa fa-cog fa-spinner"></i>Settings</a></li>
+                
+            </ul>
+        </div>
+        <div class="col-md-9 well admin-content" id="home">
+            <p>
+            {% block feeds %}
+            {% endblock %}
+            </p>
+        </div>
+        <div class="col-md-6 well admin-content" id="profile">
+            Kanimozhi
+            {% block profile %}
+            {% endblock %}
+        </div>
+        <div class="col-md-9 well admin-content" id="friends">
+            <div class="col-md-3">
+           <a href="/friends/friends/{{user.email}}/#friends">My friends</a>
+           {% block friends %}
+           {% endblock %}
+            </div>
+            <div class="col-md-3">
+           <a href="/friends/friend/requests/#friends">Friend Requests</a>
+            </div>
+            <div class="col-md-3">
+           <a href="/friends/followers/{{user.email}}/#friends">Followers</a>
+            </div>
+            <div class="col-md-3">
+           <a href="/friends/following/{{user.email}}/#friends">Following</a>
+            </div>
+        </div>
+        <div class="col-md-9 well admin-content" id="messages">
+            {% block messages %}
+            {% endblock %}
+        </div>
+        <div class="col-md-9 well admin-content" id="settings">
+           <div class="col-md-3">
+           <button class="btn btn-small"> <a href = "/password_change/">Change password<i class="fa fa-key fa-fw"></i></a></button>
+           </div>
+           <div class="col-md-3">
+           <button class="btn btn-small"><a href="/"><i class="fa fa-key fa-fw"></i></a></button>
+           </div>
+        </div>
+   </div>
+   </div>
+{% endblock %}

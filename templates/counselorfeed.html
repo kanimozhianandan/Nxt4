@@ -1,0 +1,48 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-9">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form action="/feeds/postfeed/" method="post" enctype="multipart/form-data">{% csrf_token %}
+                        <textarea class="form-control" name="feed" placeholder="Post feed to your students or counselors in your network"></textarea>
+                        Duedate: <input type="file" name="video" class="pull-right" style="width:300px;"/>
+                        <select autofocus name="postto" class="pull-left" style="width:120px;height:20px;"> <option name="postto" value="Everyone">Everyone</option>
+                            <option name="postto" value="Students" selected>Students</option>
+                            <option name="postto" value="Counselors">Counselors</option>
+                        </select>
+                        <input type="submit" name="Post">     
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<p class="lead">Your feeds:</p>
+<div class="container">
+    <div class="row">
+        {% for post in user.posts reversed %}
+        <div class="col-md-9">
+       <div class="jumbotron" style="background-color:#fff;">
+       <div class="pull-left">
+      <span class="tags">To {{ post.postto }}:</span><br/>
+      </div>
+     {{ post.feed }} <br/>
+      {% if post.video %}
+     <div class="pull-left">
+     <h5>Attachments : <a href="/static/corenxtvid/{{post.video}}">{{ post.video }}</a></h5><br/>
+     </div>
+      {% endif %}
+      <div class="pull-right">
+       {% if post.adddate %}
+      <h6>Due on {{ post.adddate }} </h6>
+      {% endif %}
+     <h6>posted on {{ post.postdate }}</h6><br/>
+    </div>
+
+    </div>
+    </div>
+{% empty %}
+ <p class="lead">Start posting feeds!</p>
+{% endfor %}
+</div>
+</div>

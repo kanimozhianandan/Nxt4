@@ -1,0 +1,20 @@
+{% extends "django_messages/subvtle.html" %}
+{% block content %}
+<div class="container">
+  <div class="row" style="color:#000;">
+      <h4 style="text-align:center"> Profile </h4>
+  <form id="profile" method="post" action=" " role="form" enctype="multipart/form-data">{% csrf_token %}
+      <div class="col-md-offset-2 col-md-7" style="background-color:#efefef;">
+          <div class="form-group">
+              <div class="col-md-offset-3 col-md-6">
+                  {{ form.as_p }}
+               <input type="submit" class="btn btn-info" name="Save" />
+           </div>
+          </div>
+       </div>
+</form>
+</div>
+</div>
+{% endblock %}
+
+

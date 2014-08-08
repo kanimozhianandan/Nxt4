@@ -1,4 +1,5 @@
 You have received this email as a confirmation for your registration to {{site}}
+as a {{cate}}
 Please confirm the registration before its expiry in {{expiration_days}} days by clicking the link below. If the link doesn't work, copy the link and paste in the address bar of the browser.
 127.0.0.1:8000/accounts/activate/{{ activation_key }}/
 Thank you.

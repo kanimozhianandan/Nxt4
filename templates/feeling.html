@@ -1,0 +1,14 @@
+<div class="container">
+    <div class="row">
+        <div class="pull-left">
+            <em>I'm feeling</em>
+            <p class="lead">
+            {% if user.profile.feel %}
+             {{ user.profile.feel}}
+            {% else %}
+              <span class="fa fa-smile-o"></span>
+            {% endif %}
+            </p>
+        </div>
+    </div>
+</div>

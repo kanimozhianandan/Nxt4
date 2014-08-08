@@ -1,0 +1,8 @@
+{% extends "sprofile.html" %}
+{% block friends %}
+ <div id="link_nav">
+     <a href="{% url 'friendship_requests' %}">Friend requests</a>
+ </div>
+ {% block content%}
+ {% endblock%}
+{% endblock %}

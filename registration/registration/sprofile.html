@@ -1,27 +1,25 @@
 {% load static %}
-<html>
+<!DOCTYPE html>
 <!-- IE8 support for HTML5 elements and media queries -->
 <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
-{% block bootstrapcss %}
-    <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet" type="text/css">
-{% endblock bootstrapcss %}
- {% block indexcss %}
-    <link href="{% static "css/index.css"%}" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="{% static "style.css"%}" media="screen" type="text/css" />
-    <link href="{% static "css/feed.css"%}" rel="stylesheet" type="text/css">
-    <!-- Fonts -->
-    <link href="{% static "font-awesome/css/font-awesome.min.css"%}" rel="stylesheet" type="text/css">
-    {% endblock indexcss %}
+ <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+ <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+ <[endif]--!>
+ {% block stylesheets %}
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="/static/css/index.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/static/style.css" type="text/css" />
+    <link href="/static/css/feed.css" rel="stylesheet" type="text/css">
+    <link href="/static/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+ {% endblock %}
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
 
-
-<body id="page-top" class="index">
-<script type="text/javascript" src="http://js.addthisevent.com/atemay.js"></script>
 <!-- Navigation -->
-<nav class="navbar navbar-default navbar-fixed-top">
+
+ {% block content %}
+ <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header page-scroll">
@@ -31,15 +29,17 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#"><img src="img/nxt.jpg" alt="Nxt4"></a>
+            <a class="navbar-brand" href="#"><img src="/static/img/nxt.jpg" alt="Nxt4"></a>
         </div>
-
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <form class="navbar-form navbar-right" role="search">
-                <input type="text" class="form-control" name="search" placeholder="Search" size="15"/>
-                <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+            <form class="navbar-form navbar-right">                  
+              <input type="search" class="form-control" results=5 name="s" placeholder="Search">
+              <button type="submit" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-search"></i></button>
             </form>
+           <div class="logsout">
+           <a href="/logout/"><span class="glyphicon glyphicon-off"></span></a>
+           </div>
         </div>
         <!-- navbar-collapse -->
     </div>
@@ -49,37 +49,92 @@
 <header>
     <div class="container">
         <div class="pp">
-            <!--Profile pic from the nstudenttable--> 
+        <!--Profile pic from the nstudenttable--> 
         </div>
         <div class="pc">  
-     <!--  <div class="btn-group">
-     <button class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-plus-sign"></span></button>
-      </div>-->
-   <!--Profile card data from the nstudenttable-->                   
-       <p>{{ email }}</p>
-          
+        <!--Profile card data from the user table-->                           
+   {% if user.is_authenticated %}
+   <p> {{ user.first_name }}{{ user.last_name}}</p>
+   {% if user.category == "C" %}
+      Counselor at {{ user.profile.school_name }}<br>
+   {% else %}  
+     {{user.profile.year_in_school}} at {{ user.profile.school_name }}<br>
+   {% endif %}   
+       Born on {{ user.profile.birth_date }}<br>
+       {{ user.profile.graduation_year }}<br>
+   {% endif %}
        </div><!--pc-->
         <div class="pco">
-            My Colleges <button type="button"><i class="glyphicon glyphicon-plus-sign"></i></button> <!--Add the listed colleges into the place with the nstudenttable and ncollegeslist-->
+            My Colleges <a href="{% url 'addcollege' %}"><span class="glyphicon glyphicon-plus-sign"></span></a> <!--Add the listed colleges into the place with the nstudenttable and ncollegeslist-->
+            {% block colleges %}{% endblock %}
+            {{user.college.user_id}}
+         Colleges: {{ user.college.college_name}}
+
         </div><!--pco-->
-    <!--All the feed data from nstudentdata and ncounselor and messages-->    
-      <div class="row">
-      <div class="board">
-       <div class="board-inner">
-       <ul class ="nav nav-tabs" id="myTab">
-        <div class="liner"></div>
-       <li class="active">
-        <a href="#home">
-         <span class="round-tabs one">
-          <i class="glyphicon glyphicon-home"></i>
-         </span>
-        </a>
-       </li>
-       </ul>
-       </div><!--board-inner-->
-      </div><!--board-->
-      </div>
-      </header>
+     <!--All the feed data from studentdata ,counselor and messages-->   
+            <div class="row">
+                <div class="board">
+                    <div class="board-inner">
+                    <ul class="nav nav-tabs" id="myTab">
+                    <div class="liner"></div>
+                  <li class="active">
+                     <a href="#home" data-toggle="tab" title="welcome">
+                      <span class="round-tabs one">
+                          <i class="glyphicon glyphicon-home"></i>
+                      </span>
+                 </a></li>
+
+                  <li><a href="#profile" data-toggle="tab" title="profile">
+                     <span class="round-tabs two">
+                         <i class="glyphicon glyphicon-user"></i>
+                     </span> 
+                 </a></li>
+
+                  <li><a href="#messages" data-toggle="tab" title="bootsnipp goodies">
+                  <span class="round-tabs three">
+                   <i class="glyphicon glyphicon-gift"></i>
+                   </span> </a>
+                   </li>
+
+                <li><a href="#settings" data-toggle="tab" title="blah blah">
+                  <span class="round-tabs four">
+                    <i class="glyphicon glyphicon-comment"></i>
+                  </span> 
+                </a></li>
+                     
+                 </ul>
+                  </div>
+ 
+                <div class="tab-content">
+                <div class="tab-pane fade in active" id="home">
+                <h3 class="head text-center">Counselor feeds<span style="color:#f48260;"></span></h3>
+                     
+                </div>
+                <div class="tab-pane fade" id="profile">
+                <h3 class="text-center">My Profile</h3>                 
+                 {% block profile %}{% endblock %}
+            
+                </div> 
+                <div class="tab-pane fade" id="messages">
+                <h3 class="text-center">Friends</h3>
+                {% block friends %}{% endblock %}
+                </div>                                             
+                <div class="tab-pane fade" id="settings">
+                 <h3 class="head text-center">Drop comments!</h3>
+                    <p class="narrow text-center">
+                              Lorem ipsum dolor sit amet, his ea mollis fabellas principes. Quo mazim facilis tincidunt ut, utinam saperet facilisi an vim.                </p>
+                          
+                    <p class="text-center">
+                    <a href="" class="btn btn-success btn-outline-rounded green"> start using bootsnipp <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
+                </p>
+                  </div>
+                </div>
+<div class="clearfix"></div>
+</div>
+</div>
+</div>
+</div>
+     </header>
 
 <!--footer-->
 <div class ="footer">
@@ -89,7 +144,5 @@
         </div>
     </div>
 </div><!--footer-->
-
-</body>
-</html>
+{% endblock %}
 

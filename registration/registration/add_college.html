@@ -1,0 +1,14 @@
+{% extends "sprofile.html" %}
+{% block colleges %}
+<form method="post" action="" role="form">{% csrf_token %}
+  <div class="row">
+          <div class="form-group">
+              <div class="col-xs-4 col-md-4">
+                 {{ form.as_p }}                 
+              </div>
+          </div>
+      <input type="submit" name="Save" />
+  </div>
+</form>
+{% endblock %}
+
