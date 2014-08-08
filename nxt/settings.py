@@ -77,7 +77,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'corenxt',
         'USER': 'root',
-        'PASSWORD':'thangamm',
+        'PASSWORD':'c0r3n*7',
         'HOST':'',
         'PORT':'',
         
