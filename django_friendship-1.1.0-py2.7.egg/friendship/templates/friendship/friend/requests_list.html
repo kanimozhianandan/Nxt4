@@ -1,0 +1,10 @@
+<ul>
+{% for friendship_request in requests %}
+{% if user == friendship_request.to_user %}
+<li>{{ friendship_request.from_user }} has sent a request to you.<a href="/friends/friend/request/{{ friendship_request.id }}/">view</a></li>
+{% endif %}
+{% empty %}
+</ul>
+<div>No requests :( </div>
+{% endfor %}
+

@@ -1,0 +1,7 @@
+<p>
+ {% for user in users %}
+ {{ user.first_name }}{{ user.last_name}} | <form method="post" action="/friends/friend/add/{{user.email}}/">{% csrf_token %}<input type="submit" value="add {{user.first_name}} as a friend"></form>| <a href="/friends/follower/add/{{user.email}}/">follow user</a>
+ {% endfor %}
+</p>
+
+

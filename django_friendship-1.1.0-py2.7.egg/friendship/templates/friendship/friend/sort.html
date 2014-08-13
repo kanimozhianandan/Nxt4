@@ -1,0 +1,27 @@
+{% extends "friendship/sprofile.html"%}
+{% block content %}
+{% for find in finds %}
+ {{find}}
+{% endfor %}
+<div class="container">
+    {% if request.user.category == "S" %}
+    <p class=lead style="color:#000;"> Friends from your school.</p>
+    {% else %}
+    <p> Counselor's from other school </p>
+    {% endif %}    
+{% for user in finds %}
+<div class="row">
+    <div class="col-md-6">
+    <div class="jumbotron">
+<p class="lead">{{user.first_name}}{{user.last_name}}</p>
+<em>{{user.category}} at {{user.profile.school_name}}</em>
+     </div>
+    </div>
+</div>
+{% empty %}
+<div class="jumbotron">
+    <h3>No friends found from your school!</h3>
+    <p>Send an invite to your friends</p>
+</div>
+{% endfor %}
+{% endblock %}

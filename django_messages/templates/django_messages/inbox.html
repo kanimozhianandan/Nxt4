@@ -1,0 +1,13 @@
+{% extends "django_messages/subvtle.html"%}
+{% block messageinbox %}
+{% for message in message_list %} 
+<p><b>{{message.sender.first_name}} {{message.sender.last_name}}</b></p>
+{{message.body}}
+{% if message.new %} <strong>{{message}}</strong> {% endif %}
+{% if message.replied %}<em>{{message}}</em>{% endif %} <br/>
+<small>{{message.sent_at}}<a href="/messages/reply/{{message.id}}/">Reply</a></small>
+
+{% empty %}
+<p>No messages.</p>
+{% endfor %}  
+{% endblock%}

@@ -9,13 +9,14 @@ URLConf to include this URLConf for any URL beginning with
 
 
 from django.conf.urls import *
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, RedirectView
 from django.contrib.auth import views as auth_views
-
 from registration.views import activate
 from registration.views import register
-
-
+from registration.forms import RegistrationFormUniqueEmail
+from userprofile.views import EditProfile, myprofile
+from friendship.views import friendship_add_friend
+from nxt.views import search
 urlpatterns = patterns('',
        # Activation keys get matched by \w+ instead of the more specific
        # [a-fA-F0-9]{40} because a bad activation key should still get to the view;
@@ -45,9 +46,11 @@ urlpatterns = patterns('',
             url(r'^password/reset/done/$',
               auth_views.password_reset_done,
               name='auth_password_reset_done'),
-            url(r'^/?$',
-               register,
-               name='registration_register'),
+            url(r'^/?$', register,{'form_class': RegistrationFormUniqueEmail},  name='registration_register'),
+            url(r'^myprofile/$', myprofile, name='myprofile'),
             url(r'^register/complete/$',TemplateView.as_view
             (template_name= 'registration_complete.html'),name='registration_complete'),
-               )
+            url(r'^profile/$', EditProfile, name='edit_profile'),
+            url(r'^friends/$',include('friendship.urls')),
+            url(r'^profile/search/$', search, name='search'),
+            )

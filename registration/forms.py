@@ -5,8 +5,13 @@ Forms and validation code for user registration.
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
-
+from django.forms.extras.widgets import SelectDateWidget
+from django.forms import extras, TextInput
 from registration.models import RegistrationProfile
+from collegelist.models import collegelist
+from userprofile.models import UserProfile
+from django.utils import timezone
+import datetime
 
 
 # I put this on all required fields, because it's easier to pick up
@@ -14,14 +19,25 @@ from registration.models import RegistrationProfile
 # in the HTML. Your mileage may vary. If/when Django ticket #3515
 # lands in trunk, this will no longer be necessary.
 attrs_dict = { 'class': 'required' }
+class UserProfileForm(forms.ModelForm):
+        class Meta:
+            model = UserProfile
+            fields = ['pp','feel','birth_date','counselor_email','school_name','year_in_school','clubs']
+            widgets = {
+                    'feel': TextInput(attrs={'class':'form-control'}),
+            'birth_date': SelectDateWidget(attrs={'class':'form-control'}),                                                                                 'counselor_email': TextInput(attrs={'class':'form-control'}),
+             'year_in_school': TextInput(attrs={'class':'form-control'}),
+             'clubs': TextInput(attrs={'class':'form-control'}),                                                                                     }
 
+
+    #docfile = forms.FileField(label='Upload a file',help_text='upload the file related to the field')
+    
 
 class RegistrationForm(forms.Form):
     """
     Form for registering a new user account.
     
-    Validates that the requested username is not already in use, and
-    requires the password to be entered twice to catch typos.
+    Requires the password to be entered twice to catch typos.
     
     Subclasses should feel free to add any additional validation they
     need, but should either preserve the base ``save()`` or implement
@@ -30,16 +46,21 @@ class RegistrationForm(forms.Form):
     ``RegistrationProfile.objects.create_inactive_user()``.
     
     """
+    category = (
+            ('S', 'Student'),
+            ('C', 'Counselor'),
+            )
     firstname = forms.RegexField(regex=r'^\w+$',                              max_length=30, widget=forms.TextInput(attrs={'class':'form-control'}),        label=_(u'firstname'))
     lastname = forms.RegexField(regex=r'^\w+$',max_length=30,widget=forms.TextInput(attrs={'class':'form-control'}),label=_(u'lastname'))
     email = forms.EmailField(widget=forms.TextInput(attrs={'class':'form-control'}), label=_(u'email address'))
     password1 = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control'}, render_value=False),  label=_(u'password'))
-    password2 = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control'}, render_value=False),
-                                label=_(u'password (again)'))
+    password2 = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control'}, render_value=False),label=_(u'password (again)'))
+    category = forms.ChoiceField(choices=category, label=_(u'category'),required=True)
    
     class Meta:
         model = User
-        fields = ['firstname','lastname','email','password1','password2']
+        fields = ['firstname','lastname','email','password1','password2','category']
+
     """    def clean_username(self):
         
 
@@ -77,11 +98,13 @@ class RegistrationForm(forms.Form):
         supplied.
         
         """
-        new_user = RegistrationProfile.objects.create_inactive_user(firstname=self.cleaned_data['firstname'],lastname=self.cleaned_data['lastname'],                                                     password=self.cleaned_data['password1'],
-email=self.cleaned_data['email'],
-                                                       profile_callback=profile_callback)
+        firstname = self.cleaned_data['firstname']
+        lastname = self.cleaned_data['lastname']
+        email = self.cleaned_data['email']
+        password = self.cleaned_data['password1']
+        category = self.cleaned_data['category']
+        new_user = RegistrationProfile.objects.create_inactive_user(firstname,lastname, password, email, category, profile_callback=profile_callback)
         return new_user
-
 
 class RegistrationFormTermsOfService(RegistrationForm):
     """
@@ -115,7 +138,7 @@ class RegistrationFormUniqueEmail(RegistrationForm):
         
         """
         if User.objects.filter(email__iexact=self.cleaned_data['email']):
-            raise forms.ValidationError(_(u'This email address is already in use. Please supply a different email address.'))
+            raise forms.ValidationError(_(u'This email address is already registered! Please try logging in!'))
         return self.cleaned_data['email']
 
 
@@ -143,4 +166,15 @@ class RegistrationFormNoFreeEmail(RegistrationForm):
         if email_domain in self.bad_domains:
             raise forms.ValidationError(_(u'Registration using free email addresses is prohibited. Please supply a different email address.'))
         return self.cleaned_data['email']
+
+class add_college_form(forms.ModelForm):
+    class Meta:
+        model = collegelist
+        fields = ('college_name',)
+        widgets = {
+                'college_name':TextInput(attrs={'class':'form-control'}
+                ),
+                }
+
+
 

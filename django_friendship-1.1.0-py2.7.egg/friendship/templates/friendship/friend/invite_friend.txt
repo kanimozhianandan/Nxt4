@@ -1,0 +1,5 @@
+Hi
+  Welcome to Nxt4! You have received an invitation from {{sender}}. Register at {{site}} by clicking the link.
+
+Thank you
+The Nxt4 Team

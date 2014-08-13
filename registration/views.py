@@ -7,8 +7,8 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-
-from registration.forms import RegistrationForm
+from userprofile.models import UserProfile
+from registration.forms import RegistrationForm, RegistrationFormUniqueEmail
 from registration.models import RegistrationProfile
 
 def activate(request, activation_key,
@@ -140,9 +140,9 @@ def register(request, success_url= '/accounts/register/complete/',
     
     """
     if request.method == 'POST':
-        form = form_class(data=request.POST, files=request.FILES)
+        form = form_class(data=request.POST, files=request.FILES,prefix='register')
         if form.is_valid():
-            new_user = form.save(profile_callback=profile_callback)
+            new_user = register.save(profile_callback=profile_callback)
             # success_url needs to be dynamically generated here; setting a
             # a default value using reverse() will cause circular-import
             # problems with the default URLConf for this application, which
@@ -159,3 +159,4 @@ def register(request, success_url= '/accounts/register/complete/',
     return render_to_response(template_name,
                               { 'form': form },
                               context_instance=context)
+

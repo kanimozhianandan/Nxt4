@@ -1,0 +1,19 @@
+{% load friendshiptags %}
+{% friend_requests user %}
+
+{% for user in users %}
+{% ifequal user friendship_request.to_user %}
+<div>{{ friendship_request.from_user }} wants to be friends with {{ friendship_request.to_user }}</div>
+<form method="post" action="/friends/friend/accept/{{friendship_request.pk }}/">
+{% csrf_token %}
+<input type="submit" value="accept" />
+</form>
+
+<form method="post" action="/friends/friend/reject/{{friendship_request.pk }}/">
+{% csrf_token %}
+<input type="submit" value="reject" />
+</form>
+{% endifequal %}
+{% empty %}
+<p>No requests:(</p>
+{% endfor %}

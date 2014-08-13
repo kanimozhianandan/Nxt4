@@ -1,0 +1,4 @@
+Welcome to Nxt4!
+One of your students have mentioned you as the counselor and would like to share their profile and grades with you.
+Start using Nxt4 and connect with your student and other counselors across the country.
+http://localhost:8000/

@@ -1,0 +1,10 @@
+import sys; sys.__plen = len(sys.path)
+./setuptools-0.6c11-py2.7.egg
+./Django-1.8.dev20140604164458-py2.7.egg
+/usr/local/lib/python2.7/dist-packages
+./html2text-2014.4.5-py2.7.egg
+./easy_thumbnails-2.0.1-py2.7.egg
+./django_friendship-1.1.0-py2.7.egg
+./django_privacy-0.2-py2.7.egg
+./django_smileys-0.1.1_pre1-py2.7.egg
+import sys; new=sys.path[sys.__plen:]; del sys.path[sys.__plen:]; p=getattr(sys,'__egginsert',0); sys.path[p:p]=new; sys.__egginsert = p+len(new)

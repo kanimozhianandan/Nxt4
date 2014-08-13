@@ -1,0 +1,11 @@
+{% extends "django_messages/subvtle.html"%}
+{% block content %}
+<form method="post" action="" role="form" enctype="multipart/form-data">{% csrf_token %}
+    <div class="col-md-4">
+    {{ form.as_p }}
+   </div>
+ <input type="submit" name="Save"/>
+</form>
+{% endblock %}
+
+

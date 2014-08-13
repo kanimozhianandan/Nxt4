@@ -13,7 +13,6 @@ from django.contrib.sites.models import Site
 
 SHA1_RE = re.compile('^[a-f0-9]{40}$')
 
-
 class RegistrationManager(models.Manager):
     """
     Custom manager for the ``RegistrationProfile`` model.
@@ -59,7 +58,7 @@ class RegistrationManager(models.Manager):
                 return user
         return False
     
-    def create_inactive_user(self, firstname, lastname, email, password, profile_callback=None):
+    def create_inactive_user(self, firstname, lastname, email, password, category, profile_callback=None):
         """
         Create a new, inactive ``User``, generates a
         ``RegistrationProfile`` and email its activation key to the
@@ -80,7 +79,7 @@ class RegistrationManager(models.Manager):
         
         """
         send_email = True
-        new_user = User.objects.create_user(firstname, lastname, email, password)
+        new_user = User.objects.create_user(firstname, lastname, password, email, category)
         new_user.is_active = False
         new_user.save()
         
@@ -93,15 +92,13 @@ class RegistrationManager(models.Manager):
             from django.core.mail import send_mail
             current_site = Site.objects.get_current()
             
-            subject = render_to_string('registration/activation_email_subject.txt',
-                                       { 'site': current_site })
+            subject = render_to_string('registration/activation_email_subject.txt',{ 'site': current_site })
             # Email subject *must not* contain newlines
             subject = ''.join(subject.splitlines())
             
-            message = render_to_string('registration/activation_email.txt',
-            { 'activation_key': registration_profile.activation_key,
+            message = render_to_string('registration/activation_email.txt', { 'activation_key': registration_profile.activation_key,
             'expiration_days': settings.ACCOUNT_ACTIVATION_DAYS,
-            'site': current_site })
+            'site': current_site})
             
             send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [new_user.email])
         return new_user
@@ -208,8 +205,7 @@ class RegistrationProfile(models.Model):
         Key expiration is determined by a two-step process:
         
         1. If the user has already activated, the key will have been
-           reset to the string ``ALREADY_ACTIVATED``. Re-activating is
-           not permitted, and so this method returns ``True`` in this
+           reset to the string ``ALREADY_ACTIVATED``. Re-activating  is not permitted, and so this method returns ``True`` in this
            case.
 
         2. Otherwise, the date the user signed up is incremented by
@@ -219,10 +215,11 @@ class RegistrationProfile(models.Model):
            activate their account); if the result is less than or
            equal to the current date, the key has expired and this
            method returns ``True``.
-        
+
         """
         expiration_date = datetime.timedelta(days=settings.ACCOUNT_ACTIVATION_DAYS)
         return self.activation_key == "ALREADY_ACTIVATED" or \
-               (self.user.date_joined + expiration_date <= timezone.make_aware(datetime.datetime.now())
-                       
+              (self.user.date_joined + expiration_date <= (timezone.now()))
     activation_key_expired.boolean = True
+
+
