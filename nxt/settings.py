@@ -42,7 +42,6 @@ INSTALLED_APPS = (
     'collegelist',
     'friendship',
     'django_messages',
-    'privacy',
     'hvad',
     'feeds',
 )
