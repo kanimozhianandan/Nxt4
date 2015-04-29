@@ -164,7 +164,6 @@ class Repair(object):
             logger.debug(type)
             logger.debug(value)
             logger.debug(traceback.extract_tb(tb))
-            logger.info("TAken here")
         except Exception as e:
             print e
             #del tb
